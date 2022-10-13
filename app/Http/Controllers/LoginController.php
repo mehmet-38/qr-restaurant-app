@@ -25,6 +25,6 @@ class LoginController extends Controller
             ]);
         }
     
-        return response()->json(["email"=>$user->createToken('bearer')->plainTextToken,"id"=>Auth::user()->id]);
+        return json_encode(["token"=>$user->createToken('bearer')->plainTextToken,"id"=>Auth::user()->id]);
     }
 }

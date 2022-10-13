@@ -21,7 +21,7 @@ use \App\Http\Controllers\RestaurantController;
 |
 */
 // Login - Register Process
-Route::get("/login",[LoginController::class,"Login"]);
+Route::post("/login",[LoginController::class,"Login"]);
 Route::post("/register",[RegisterController::class,"Register"]);
 
 // ----
@@ -33,9 +33,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(["prefix"=>"admin","middleware"=>["auth:sanctum","role:1"]],function(){
     Route::get('users',[UserController::class,"getUserData"]);
+    Route::post('users',[UserController::class,'addUserData']);
     
 });
-Route::post('users',[UserController::class,'addUserData']);
+
 //  admin bareer token :  KFDhwo8KTqjKpBrhxjwn6aqBAWwm4VjUnlsoDN6C
 
 // Restaurant process
