@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\UserController as ApiUserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Http\Request;
@@ -50,5 +51,8 @@ Route::post('products',[ProductController::class,'addProductsData']);
 
 Route::post('menus',[MenuController::class,"addMenusData"]);
 Route::get("menus/{menus_id}",[MenuController::class,"getMenusData"]);
+
+// Photo upload
+Route::post('upload',[PhotoController::class,"uploadPhoto"]);
 
 

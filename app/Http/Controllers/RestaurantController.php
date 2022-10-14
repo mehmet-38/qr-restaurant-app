@@ -28,6 +28,7 @@ class RestaurantController extends Controller
         $resturant->rest_name=$request->rest_name;
         $resturant->menus_id=$request->menus_id;
         $resturant->qr_link = $request->qr_link;
+        $resturant->rest_photo = $request->file('file')->store('restPhoto');
         $resturant->save();
         return json_encode("success for saved restaurant");
 

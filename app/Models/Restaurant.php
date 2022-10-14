@@ -12,6 +12,6 @@ class Restaurant extends Model
         'rest_name',
         'menus_id',
         'qr_link',
-
+        'rest_photo'
     ];
 }
