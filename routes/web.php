@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Panel\AdminController;
+use App\Http\Controllers\Panel\GuestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::group(["prefix"=>"admin","middleware"=>["auth","can:isAdmin","verified"]],function(){
+    Route::get("home",[AdminController::class,'home'])->name("a-home");
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', function () {
+    return view('auth.login');
+});
+Route::get("guest/Index",[GuestController::class,"Index"]);
 
 require __DIR__.'/auth.php';

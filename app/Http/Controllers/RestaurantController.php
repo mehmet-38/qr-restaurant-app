@@ -8,19 +8,15 @@ use Illuminate\Http\Request;
 class RestaurantController extends Controller
 {
     public function getRestaurantData(){
-        $restaurant = Restaurant::all();
-        //$products = Restaurant::query()->join("menus","menus.id","=","restaurants.menus_id")->get();
-        if(request()->id){
-            $rest = Restaurant::query()->join("menus","menus.id","=","restaurants.menus_id")
-            ->where("restaurants.id",request()->id)->get();
-            return json_encode($rest);
-        }
-        else{
-            $products = Restaurant::query()->join("menus","menus.id","=","restaurants.menus_id")->get();
-            return json_encode($products);
-        }
-
-        
+      
+        $products = Restaurant::query()->join("menus","menus.id","=","restaurants.menus_id")->get();
+        return json_encode($products);
+          
+    }
+    public function getRestWithId($rest_id){
+        $resturant = Restaurant::query()->join("menus","menus.id","=","restaurants.menus_id")
+        ->where("restaurants.rest_id","=",$rest_id)->get();
+        return json_encode($resturant);
     }
 
     public function addResturantData(Request $request){

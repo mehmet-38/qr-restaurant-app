@@ -12,6 +12,7 @@ class ProductController extends Controller
         $product->food_name = $request->food_name;
         $product->food_price = $request->food_price;
         $product->menus_id = $request->menus_id;
+        $product->product_photo = $request->file('file')->store('productPhoto');
         $result = $product->save();
         if($result)
         return json_encode("success for saved products");

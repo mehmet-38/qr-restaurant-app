@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\RestaurantController;
+use App\Models\Restaurant;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,7 @@ Route::group(["prefix"=>"admin","middleware"=>["auth:sanctum","role:1"]],functio
 // Restaurant process
 Route::get('rest',[RestaurantController::class,'getRestaurantData']);
 Route::post('rest',[RestaurantController::class,'addResturantData']);
+Route::get('rest/{rest_id}',[RestaurantController::class,'getRestWithId']);
 
 // Products process
 Route::post('products',[ProductController::class,'addProductsData']);
