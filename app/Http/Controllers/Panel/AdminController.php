@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -11,10 +13,41 @@ class AdminController extends Controller
     {
         $this->middleware(['auth']);
     }
-    public function home(){
+    public function home()
+    {
         $data['title'] = "Admin";
-        $data['content']=view("users.admin.user_control");
-        $data['sidebar']=view("users.admin.side_bar");
-        return view("users.admin",$data);
+        $data['content'] = view("users.admin.dashboard");
+        $data['sidebar'] = view("users.admin.side_bar");
+        return view("users.admin", $data);
+    }
+    public function users()
+    {
+        $users['users'] = User::all();
+        $data['title'] = "Admin";
+        $data['content'] = view("users.admin.users_page", $users);
+        $data['sidebar'] = view("users.admin.side_bar");
+        return view("users.admin", $data);
+    }
+    public function addUsersPage()
+    {
+        $data['title'] = "Admin";
+        $data['content'] = view("users.admin.add_users",);
+        $data['sidebar'] = view("users.admin.side_bar");
+        return view("users.admin", $data);
+    }
+    public function addUsers(Request $request)
+    {
+        $userData = new User();
+        $userData->name = $request->input('name');
+        $userData->surname = $request->input('surname');
+        $userData->email = $request->input('email');
+        $userData->password = Hash::make($request->input('password'));
+        $userData->role = $request->input('role');
+        $response = $userData->save();
+        if ($response) {
+            return redirect()->route("add-users-page");
+        } else {
+            echo "wrong";
+        }
     }
 }

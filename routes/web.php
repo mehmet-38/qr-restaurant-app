@@ -16,13 +16,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::group(["prefix"=>"admin","middleware"=>["auth","can:isAdmin","verified"]],function(){
-    Route::get("home",[AdminController::class,'home'])->name("a-home");
+Route::group(["prefix" => "admin", "middleware" => ["auth", "can:isAdmin", "verified"]], function () {
+    Route::get("home", [AdminController::class, 'home'])->name("a-home");
+    Route::get("users", [AdminController::class, 'users'])->name("a-users");
+    Route::get("add-users-page", [AdminController::class, 'addUsersPage'])->name("add-users-page");
+    Route::post("add-users", [AdminController::class, 'addUsers'])->name("add-users");
 });
 
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get("guest/Index",[GuestController::class,"Index"]);
+Route::get("guest/Index", [GuestController::class, "Index"]);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
