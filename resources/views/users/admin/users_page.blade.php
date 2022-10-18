@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -51,8 +51,9 @@
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                    class="bx bx-edit-alt me-1"></i> Edit</a>
+                                            <button type="button" class="dropdown-item " id="editBtn"
+                                                value="{{ $user->id }}"><i class="bx bx-edit-alt me-1"></i>
+                                                Edit</button>
                                             <a class="dropdown-item" href="javascript:void(0);"><i
                                                     class="bx bx-trash me-1"></i>
                                                 Delete</a>
@@ -66,6 +67,77 @@
             </div>
         </div>
     </div>
+    <form action="{{ route('update-user') }}" method="POST">
+        @csrf
+        <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel1">Kullanıcı Güncelle</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row g-2">
+                            <div class="col mb-0">
+                                <label for="name" class="form-label">İsim</label>
+                                <input type="text" id="name" name="name" class="form-control"
+                                    placeholder="İsim" />
+                                <input type="hidden" id="id" name="id" class="form-control" />
+                            </div>
+                            <div class="col mb-0">
+                                <label for="surname" class="form-label">Soyisim</label>
+                                <input type="text" id="surname" name="surname" class="form-control"
+                                    placeholder="Soyisim" />
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col mb-2">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" name="email" class="form-control"
+                                    placeholder="Email" />
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col mb-2">
+                                <label for="role" class="form-label">Role</label>
+                                <input type="text" id="role" name="role" class="form-control"
+                                    placeholder="Role" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '#editBtn', function() {
+                var user_id = $(this).val();
+                $('#basicModal').modal('show')
+                $.ajax({
+                    type: 'GET',
+                    url: "/edit-user/" + user_id,
+                    success: function(response) {
+                        $('#name').val(response.user.name);
+                        $('#surname').val(response.user.surname);
+                        $('#email').val(response.user.email);
+                        $('#role').val(response.user.role);
+                        $('#id').val(response.user.id);
+
+                    }
+                })
+            })
+        })
+    </script>
 </body>
 
 </html>

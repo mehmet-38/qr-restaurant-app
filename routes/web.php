@@ -21,8 +21,9 @@ Route::group(["prefix" => "admin", "middleware" => ["auth", "can:isAdmin", "veri
     Route::get("users", [AdminController::class, 'users'])->name("a-users");
     Route::get("add-users-page", [AdminController::class, 'addUsersPage'])->name("add-users-page");
     Route::post("add-users", [AdminController::class, 'addUsers'])->name("add-users");
+    Route::post("update-user", [AdminController::class, 'updateUser'])->name("update-user");
 });
-
+Route::get("edit-user/{id}", [AdminController::class, 'edit']);
 Route::get('/', function () {
     return view('auth.login');
 });

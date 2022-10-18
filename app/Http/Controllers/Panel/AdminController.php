@@ -20,6 +20,7 @@ class AdminController extends Controller
         $data['sidebar'] = view("users.admin.side_bar");
         return view("users.admin", $data);
     }
+
     public function users()
     {
         $users['users'] = User::all();
@@ -27,6 +28,29 @@ class AdminController extends Controller
         $data['content'] = view("users.admin.users_page", $users);
         $data['sidebar'] = view("users.admin.side_bar");
         return view("users.admin", $data);
+    }
+    public function edit($id)
+    {
+        $user = User::find($id);
+        return response()->json([
+            'status' => 200,
+            'user' => $user
+        ]);
+    }
+    public function updateUser(Request $request)
+    {
+        $user_id = $request->input('id');
+        $user = User::find($user_id);
+        $user->name = $request->input('name');
+        $user->surname = $request->input('surname');
+        $user->email = $request->input('email');
+        $user->role = $request->input('role');
+        $response = $user->save();
+        if ($response) {
+            return redirect()->route('a-users');
+        } else {
+            echo "wrong";
+        }
     }
     public function addUsersPage()
     {
