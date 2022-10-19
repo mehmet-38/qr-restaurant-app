@@ -16,34 +16,27 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>İsim</th>
-                            <th>Soyisim</th>
-                            <th>Email</th>
-                            <th>Role</th>
+                            <th>Restoran İsmi</th>
+                            <th>Qr Link</th>
+                            <th>Menü Id</th>
+                            <th>Fotograf</th>
                             <th>İşlemler</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                        @foreach ($users as $user)
+                        @foreach ($restaurants as $rest)
                             <tr>
                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                    <strong>{{ $user->name }}</strong>
+                                    <strong>{{ $rest->rest_name }}</strong>
                                 </td>
-                                <td>{{ $user->surname }}</td>
+                                <td>{{ $rest->qr_link }}</td>
                                 <td>
-                                    {{ $user->email }}
+                                    {{ $rest->menus_id }}
                                 </td>
-                                <td><span class="badge bg-label-primary me-1">
-                                        @if ($user->role == 1)
-                                            admin
-                                        @elseif ($user->role == 2)
-                                            restorant yöneticisi
-                                        @elseif ($user->role == 3)
-                                            kullanıcı
-                                        @endif
+                                <td>
+                                    <img src="http://localhost/{{ $rest->rest_photo }}" style="width: 120px">
 
-
-                                    </span></td>
+                                </td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -52,10 +45,10 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <button type="button" class="dropdown-item " id="editBtn"
-                                                value="{{ $user->id }}"><i class="bx bx-edit-alt me-1"></i>
+                                                value="{{ $rest->id }}"><i class="bx bx-edit-alt me-1"></i>
                                                 Edit</button>
                                             <button class="dropdown-item" id="deleteBtn"
-                                                onclick="deleteUser({{ $user->id }})"><i
+                                                onclick="deleteUser({{ $rest->id }})"><i
                                                     class="bx bx-trash me-1"></i>
                                                 Delete</button>
                                         </div>

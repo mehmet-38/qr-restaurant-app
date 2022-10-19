@@ -39,7 +39,7 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">İşlemler</span>
             </li>
-            <li class="menu-item {{ request()->routeIs('a-users') ? 'active' : 'active' }}">
+            <li class="menu-item {{ request()->routeIs('a-users') ? 'active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-dock-top"></i>
                     <div data-i18n="Account Settings">Kullanıcı İşlemleri</div>
@@ -58,11 +58,24 @@
 
                 </ul>
             </li>
-            <li class="menu-item ">
-                <a href="javascript:void(0);" class="menu-link">
+            <li class="menu-item {{ request()->routeIs('a-restaurants') ? 'active' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                    <div data-i18n="Authentications">Restorant İşlemleri</div>
+                    <div data-i18n="Authentications">Restoran İşlemleri</div>
                 </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ request()->routeIs('a-restaurants') ? 'active' : '' }}">
+                        <a href="{{ route('a-restaurants') }}" class="menu-link">
+                            <div data-i18n="Account">Restoran Listele</div>
+                        </a>
+                    </li>
+                    <li class="menu-item ">
+                        <a href="{{ route('add-users-page') }}" class="menu-link">
+                            <div data-i18n="Notifications">Restoran Ekle</div>
+                        </a>
+                    </li>
+
+                </ul>
 
             </li>
             <li class="menu-item ">

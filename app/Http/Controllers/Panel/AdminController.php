@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
+use App\Models\Restaurant;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -36,6 +37,17 @@ class AdminController extends Controller
             'status' => 200,
             'user' => $user
         ]);
+    }
+    public function deleteUser(Request $request)
+    {
+        $user_id = $request->input("deleteId");
+        $user = User::find($user_id);
+        $response = $user->delete();
+        if ($response) {
+            return redirect()->route('a-users');
+        } else {
+            echo "wrong";
+        }
     }
     public function updateUser(Request $request)
     {
@@ -73,5 +85,13 @@ class AdminController extends Controller
         } else {
             echo "wrong";
         }
+    }
+    public function restaurants()
+    {
+        $restaurants['restaurants'] = Restaurant::all();
+        $data['title'] = "Admin";
+        $data['content'] = view("users.admin.restaurants_page", $restaurants);
+        $data['sidebar'] = view("users.admin.side_bar");
+        return view("users.admin", $data);
     }
 }

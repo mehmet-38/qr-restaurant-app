@@ -22,6 +22,8 @@ Route::group(["prefix" => "admin", "middleware" => ["auth", "can:isAdmin", "veri
     Route::get("add-users-page", [AdminController::class, 'addUsersPage'])->name("add-users-page");
     Route::post("add-users", [AdminController::class, 'addUsers'])->name("add-users");
     Route::post("update-user", [AdminController::class, 'updateUser'])->name("update-user");
+    Route::delete("delete-user", [AdminController::class, 'deleteUser'])->name("delete-user");
+    Route::get("restaurants", [AdminController::class, 'restaurants'])->name("a-restaurants");
 });
 Route::get("edit-user/{id}", [AdminController::class, 'edit']);
 Route::get('/', function () {
