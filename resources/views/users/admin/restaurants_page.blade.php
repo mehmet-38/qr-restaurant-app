@@ -45,10 +45,10 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <button type="button" class="dropdown-item " id="editBtn"
-                                                value="{{ $rest->id }}"><i class="bx bx-edit-alt me-1"></i>
+                                                value="{{ $rest->rest_id }}"><i class="bx bx-edit-alt me-1"></i>
                                                 Edit</button>
                                             <button class="dropdown-item" id="deleteBtn"
-                                                onclick="deleteUser({{ $rest->id }})"><i
+                                                onclick="deleteRest({{ $rest->rest_id }})"><i
                                                     class="bx bx-trash me-1"></i>
                                                 Delete</button>
                                         </div>
@@ -61,10 +61,10 @@
             </div>
         </div>
     </div>
-    <form action="{{ route('delete-user') }} "method="POST" id="deleteForm">
+    <form action="{{ route('delete-rest') }} "method="POST" id="deleteForm">
         @csrf
         @method('delete')
-        <input type="hidden" name="deleteId" id="deleteId">
+        <input type="hidden" name="deleteRestId" id="deleteRestId">
     </form>
     <form action="{{ route('update-user') }}" method="POST">
         @csrf
@@ -72,36 +72,35 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel1">Kullanıcı Güncelle</h5>
+                        <h5 class="modal-title" id="exampleModalLabel1">Restoran Güncelle</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                     <div class="modal-body">
                         <div class="row g-2">
                             <div class="col mb-0">
-                                <label for="name" class="form-label">İsim</label>
-                                <input type="text" id="name" name="name" class="form-control"
-                                    placeholder="İsim" />
-                                <input type="hidden" id="id" name="id" class="form-control" />
+                                <label for="rest_name" class="form-label">Restoran İsmi</label>
+                                <input type="text" id="rest_name" name="rest_name" class="form-control"
+                                    placeholder="Restoran İsmi" />
+                                <input type="hidden" id="rest_id" name="rest_id" class="form-control" />
                             </div>
                             <div class="col mb-0">
-                                <label for="surname" class="form-label">Soyisim</label>
-                                <input type="text" id="surname" name="surname" class="form-control"
-                                    placeholder="Soyisim" />
+                                <label for="rest_qr" class="form-label">Restoran QR Link</label>
+                                <input type="text" id="rest_qr" name="rest_qr" class="form-control"
+                                    placeholder="Restoran QR " />
                             </div>
                         </div>
                         <div class="row ">
                             <div class="col mb-2">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" id="email" name="email" class="form-control"
-                                    placeholder="Email" />
+                                <label for="menu_id" class="form-label">Menu Id</label>
+                                <input type="text" id="menu_id" name="menu_id" class="form-control"
+                                    placeholder="Menu Id" />
                             </div>
                         </div>
                         <div class="row ">
                             <div class="col mb-2">
-                                <label for="role" class="form-label">Role</label>
-                                <input type="text" id="role" name="role" class="form-control"
-                                    placeholder="Role" />
+                                <label for="rest_photo" class="form-label">Restoran Fotoğraf</label>
+                                <input type="file" id="rest_photo" name="rest_photo" class="form-control" />
                             </div>
                         </div>
 
@@ -120,18 +119,18 @@
     <script>
         $(document).ready(function() {
             $(document).on('click', '#editBtn', function() {
-                var user_id = $(this).val();
+                var rest_id = $(this).val();
                 $('#basicModal').modal('show')
+
                 $.ajax({
                     type: 'GET',
-                    url: "/edit-user/" + user_id,
+                    url: "/edit-rest/" + rest_id,
                     success: function(response) {
-                        $('#name').val(response.user.name);
-                        $('#surname').val(response.user.surname);
-                        $('#email').val(response.user.email);
-                        $('#role').val(response.user.role);
-                        $('#id').val(response.user.id);
-
+                        $('#rest_name').val(response.rest.rest_name);
+                        $('#rest_qr').val(response.rest.qr_link);
+                        $('#menu_id').val(response.rest.menus_id);
+                        $('#rest_photo').val(response.rest.rest_photo);
+                        $('#rest_id').val(response.rest.rest_id);
                     }
                 })
             })
@@ -139,9 +138,9 @@
 
         })
 
-        function deleteUser(id) {
+        function deleteRest(id) {
             if (confirm("Silme işlemini onaylayınız")) {
-                $("[name=deleteId]").val(id);
+                $("[name=deleteRestId]").val(id);
                 $("#deleteForm").submit();
             }
         }

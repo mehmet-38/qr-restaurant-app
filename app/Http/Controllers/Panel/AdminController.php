@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+
 class AdminController extends Controller
 {
     public function __construct()
@@ -93,5 +94,45 @@ class AdminController extends Controller
         $data['content'] = view("users.admin.restaurants_page", $restaurants);
         $data['sidebar'] = view("users.admin.side_bar");
         return view("users.admin", $data);
+    }
+    public function editRestoran($rest_id)
+    {
+        $restoran = Restaurant::query()->where("rest_id", "=", $rest_id)->first();
+        return response()->json([
+            "status" => 200,
+            "rest" => $restoran
+        ]);
+    }
+    public function deleteRest(Request $request)
+    {
+        $rest_id = $request->input("deleteRestId");
+        $restoran = Restaurant::query()->where("rest_id", "=", $rest_id)->first();
+        $response = $restoran->query()->where("rest_id", "=", $rest_id)->delete();
+        if ($response)
+            return redirect()->route('a-restaurants');
+        else
+            echo "wrong";
+    }
+    public function addRestPage()
+    {
+        $data['title'] = "Admin";
+        $data['content'] = view("users.admin.add_rest",);
+        $data['sidebar'] = view("users.admin.side_bar");
+        return view("users.admin", $data);
+    }
+    public function addRest(Request $request)
+    {
+
+        $restData = new Restaurant();
+        $restData->rest_name = $request->input('rest_name');
+        $restData->qr_link = $request->input('rest_qr');
+        $restData->menus_id = $request->input('menu_id');
+        $restData->rest_photo = $request->file('rest_photo')->store("restPhoto");
+        $response = $restData->save();
+
+        if ($response)
+            return redirect()->route("add-rest-page");
+        else
+            echo "wrong";
     }
 }

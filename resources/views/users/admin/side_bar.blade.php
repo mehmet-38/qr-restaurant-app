@@ -69,8 +69,8 @@
                             <div data-i18n="Account">Restoran Listele</div>
                         </a>
                     </li>
-                    <li class="menu-item ">
-                        <a href="{{ route('add-users-page') }}" class="menu-link">
+                    <li class="menu-item {{ request()->routeIs('add-rest-page') ? 'active' : '' }}">
+                        <a href="{{ route('add-rest-page') }}" class="menu-link">
                             <div data-i18n="Notifications">Restoran Ekle</div>
                         </a>
                     </li>

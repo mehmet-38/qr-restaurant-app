@@ -24,8 +24,13 @@ Route::group(["prefix" => "admin", "middleware" => ["auth", "can:isAdmin", "veri
     Route::post("update-user", [AdminController::class, 'updateUser'])->name("update-user");
     Route::delete("delete-user", [AdminController::class, 'deleteUser'])->name("delete-user");
     Route::get("restaurants", [AdminController::class, 'restaurants'])->name("a-restaurants");
+    Route::delete("delete-rest", [AdminController::class, 'deleteRest'])->name("delete-rest");
+    Route::get("add-rest-page", [AdminController::class, 'addRestPage'])->name("add-rest-page");
+    Route::post("add-rest", [AdminController::class, 'addRest'])->name("add-rest");
 });
 Route::get("edit-user/{id}", [AdminController::class, 'edit']);
+Route::get("edit-rest/{id}", [AdminController::class, 'editRestoran']);
+
 Route::get('/', function () {
     return view('auth.login');
 });

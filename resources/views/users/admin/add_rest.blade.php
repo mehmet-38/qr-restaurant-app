@@ -21,31 +21,28 @@
 
             <hr class="my-0" />
             <div class="card-body">
-                <form id="formAccountSettings" method="POST" action="{{ route('add-users') }}">
+                <form method="POST" action="{{ route('add-rest') }}" enctype="multipart/form-data">
                     @csrf
+
                     <div class="row">
                         <div class="mb-3 col-md-6">
-                            <label for="name" class="form-label">İsim</label>
-                            <input class="form-control" type="text" id="name" name="name"placeholder="İsim"
-                                autofocus />
+                            <label for="rest_name" class="form-label">Restoran İsmi</label>
+                            <input class="form-control" type="text" id="rest_name"
+                                name="rest_name"placeholder="Restoran İsmi" autofocus />
                         </div>
                         <div class="mb-3 col-md-6">
-                            <label for="surname" class="form-label">Soyisim</label>
-                            <input class="form-control" type="text" name="surname" id="surname"
-                                placeholder="Soyisim" />
+                            <label for="rest_qr" class="form-label">Restoran QR Linki</label>
+                            <input class="form-control" type="text" name="rest_qr" id="rest_qr"
+                                placeholder="Restoran QR Link" />
                         </div>
                         <div class="mb-3 col-md-6">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input class="form-control" type="text" id="email" name="email"
-                                placeholder="deneme@example.com" />
+                            <label for="menu_id" class="form-label">Restoran Menu Id</label>
+                            <input class="form-control" type="text" id="menu_id" name="menu_id"
+                                placeholder="Menu Id" />
                         </div>
                         <div class="mb-3 col-md-6">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" />
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <label class="form-label" for="role">Kullanıcı Rolü</label>
-                            <input type="text" id="role" name="role" class="form-control" placeholder="1" />
+                            <label for="rest_photo" class="form-label">Restoran Fotoğraf</label>
+                            <input type="file" class="form-control" id="rest_photo" name="rest_photo" />
                         </div>
 
 
