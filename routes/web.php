@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Panel\AdminController;
 use App\Http\Controllers\Panel\GuestController;
+use App\Http\Controllers\Panel\RestManagerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +28,15 @@ Route::group(["prefix" => "admin", "middleware" => ["auth", "can:isAdmin", "veri
     Route::delete("delete-rest", [AdminController::class, 'deleteRest'])->name("delete-rest");
     Route::get("add-rest-page", [AdminController::class, 'addRestPage'])->name("add-rest-page");
     Route::post("add-rest", [AdminController::class, 'addRest'])->name("add-rest");
+    Route::post("upadate-rest", [AdminController::class, 'updateRest'])->name("update-rest");
 });
+
+Route::group(["prefix" => "manager", "middleware" => ["auth", "can:isRestaurantManager", "verified"]], function () {
+
+    Route::get("home", [RestManagerController::class, 'home'])->name('r-home');
+    Route::get("info-rest", [RestManagerController::class, 'infoRestPage'])->name('info-rest');
+});
+
 Route::get("edit-user/{id}", [AdminController::class, 'edit']);
 Route::get("edit-rest/{id}", [AdminController::class, 'editRestoran']);
 

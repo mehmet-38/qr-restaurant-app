@@ -66,7 +66,7 @@
         @method('delete')
         <input type="hidden" name="deleteRestId" id="deleteRestId">
     </form>
-    <form action="{{ route('update-user') }}" method="POST">
+    <form action="{{ route('update-rest') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -79,10 +79,12 @@
                     <div class="modal-body">
                         <div class="row g-2">
                             <div class="col mb-0">
+                                <input type="hidden" id="rest_id" name="rest_id" class="form-control">
                                 <label for="rest_name" class="form-label">Restoran İsmi</label>
                                 <input type="text" id="rest_name" name="rest_name" class="form-control"
                                     placeholder="Restoran İsmi" />
-                                <input type="hidden" id="rest_id" name="rest_id" class="form-control" />
+
+
                             </div>
                             <div class="col mb-0">
                                 <label for="rest_qr" class="form-label">Restoran QR Link</label>
@@ -101,6 +103,7 @@
                             <div class="col mb-2">
                                 <label for="rest_photo" class="form-label">Restoran Fotoğraf</label>
                                 <input type="file" id="rest_photo" name="rest_photo" class="form-control" />
+                                <img src="" alt="" id="photo">
                             </div>
                         </div>
 
@@ -126,11 +129,12 @@
                     type: 'GET',
                     url: "/edit-rest/" + rest_id,
                     success: function(response) {
+                        $('#rest_id').val(response.rest.rest_id);
                         $('#rest_name').val(response.rest.rest_name);
                         $('#rest_qr').val(response.rest.qr_link);
                         $('#menu_id').val(response.rest.menus_id);
                         $('#rest_photo').val(response.rest.rest_photo);
-                        $('#rest_id').val(response.rest.rest_id);
+
                     }
                 })
             })

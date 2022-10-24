@@ -116,7 +116,7 @@ class AdminController extends Controller
     public function addRestPage()
     {
         $data['title'] = "Admin";
-        $data['content'] = view("users.admin.add_rest",);
+        $data['content'] = view("users.admin.add_rest");
         $data['sidebar'] = view("users.admin.side_bar");
         return view("users.admin", $data);
     }
@@ -134,5 +134,22 @@ class AdminController extends Controller
             return redirect()->route("add-rest-page");
         else
             echo "wrong";
+    }
+    public function updateRest(Request $request)
+    {
+        $rest_id = $request->input('rest_id');
+
+        $response = Restaurant::where("rest_id", "=", $rest_id)->update([
+            'rest_name' => $request->input('rest_name'),
+            'qr_link' => $request->input('rest_qr'),
+            'menus_id' => $request->input('menu_id'),
+            'rest_photo' => $request->file('rest_photo')->store('restPhoto')
+        ]);
+
+        if ($response) {
+            return redirect()->route('a-restaurants');
+        } else {
+            echo "wrong";
+        }
     }
 }

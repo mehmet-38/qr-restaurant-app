@@ -8,16 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class GuestController extends Controller
 {
-    public function Index (){
+    public function Index()
+    {
 
-        if (Auth::user()->role==env("ROLE_ADMIN")){
-            
+        if (Auth::user()->role == env("ROLE_ADMIN")) {
+
             return redirect()->route("a-home");
+        } else if (Auth::user()->role == env("ROLE_RESTAURANT_MANAGER")) {
+            return redirect()->route("r-home");
         }
-        else if(Auth::user()->role==env("ROLE_RESTAURANT_MANAGER")){
-            return redirect()->route("a-home");
-
-        }
-
     }
 }
