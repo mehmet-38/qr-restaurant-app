@@ -28,7 +28,7 @@
 
         <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item }">
+            <li class="menu-item {{ request()->routeIs('r-home') ? 'active' : '' }}">
                 <a href="{{ route('r-home') }}" class="menu-link ">
                     <i class="menu-icon tf-icons bx bx-home-circle"></i>
                     <div data-i18n="Analytics">Dashboard</div>
@@ -39,13 +39,13 @@
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">İşlemler</span>
             </li>
-            <li class="menu-item ">
+            <li class="menu-item {{ request()->routeIs('info-rest') ? 'active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-dock-top"></i>
                     <div data-i18n="Account Settings">Restoran İşlemleri</div>
                 </a>
                 <ul class="menu-sub">
-                    <li class="menu-item ">
+                    <li class="menu-item {{ request()->routeIs('info-rest') ? 'active' : '' }}">
                         <a href="{{ route('info-rest') }}" class="menu-link">
                             <div data-i18n="Account">Restoran Bilgileri</div>
                         </a>
@@ -54,18 +54,18 @@
 
                 </ul>
             </li>
-            <li class="menu-item ">
+            <li class="menu-item {{ request()->routeIs('add-menu-page') ? 'active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
                     <div data-i18n="Authentications">Menü İşlemleri</div>
                 </a>
                 <ul class="menu-sub">
-                    <li class="menu-item ">
-                        <a href="" class="menu-link">
+                    <li class="menu-item {{ request()->routeIs('add-menu-page') ? 'active' : '' }}">
+                        <a href="{{ route('add-menu-page') }}" class="menu-link">
                             <div data-i18n="Account">Menü Bilgileri</div>
                         </a>
                     </li>
-                    <li class="menu-item ">
+                    <li class="menu-item {{ request()->routeIs('add-menu-page') ? 'active' : '' }}">
                         <a href="" class="menu-link">
                             <div data-i18n="Notifications">Ürün Ekle</div>
                         </a>
@@ -78,13 +78,12 @@
 
     </aside>
     <script>
-        /*
-                      $(document).ready(function() {
-                        $("ul li").click(function() {
-                         $("ul li").removeClass("active");
-                         $(this).addClass("active");
-                        })
-                        })*/
+        $(document).ready(function() {
+            $("ul li").click(function() {
+                $("ul li").removeClass("active");
+                $(this).addClass("active");
+            })
+        })
     </script>
 </body>
 

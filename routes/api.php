@@ -23,8 +23,8 @@ use App\Models\Restaurant;
 |
 */
 // Login - Register Process
-Route::post("/login",[LoginController::class,"Login"]);
-Route::post("/register",[RegisterController::class,"Register"]);
+Route::post("/login", [LoginController::class, "Login"]);
+Route::post("/register", [RegisterController::class, "Register"]);
 
 // ----
 
@@ -33,28 +33,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::group(["prefix"=>"admin","middleware"=>["auth:sanctum","role:1"]],function(){
-    Route::get('users',[UserController::class,"getUserData"]);
-    Route::post('users',[UserController::class,'addUserData']);
-    
+Route::group(["prefix" => "admin", "middleware" => ["auth:sanctum", "role:1"]], function () {
+    Route::get('users', [UserController::class, "getUserData"]);
+    Route::post('users', [UserController::class, 'addUserData']);
 });
 
 //  admin bareer token :  KFDhwo8KTqjKpBrhxjwn6aqBAWwm4VjUnlsoDN6C
 
 // Restaurant process
-Route::get('rest',[RestaurantController::class,'getRestaurantData']);
-Route::post('rest',[RestaurantController::class,'addResturantData']);
-Route::get('rest/{rest_id}',[RestaurantController::class,'getRestWithId']);
+Route::get('rest', [RestaurantController::class, 'getRestaurantData']);
+Route::post('rest', [RestaurantController::class, 'addResturantData']);
+Route::get('rest/{rest_id}', [RestaurantController::class, 'getRestWithId']);
 
 // Products process
-Route::post('products',[ProductController::class,'addProductsData']);
+Route::post('products', [ProductController::class, 'addProductsData']);
 
 // Menu Process
 
-Route::post('menus',[MenuController::class,"addMenusData"]);
-Route::get("menus/{menus_id}",[MenuController::class,"getMenusData"]);
+Route::post('menus', [MenuController::class, "addMenusData"]);
+Route::get("menus/{menus_id}", [MenuController::class, "getMenusData"]);
 
 // Photo upload
-Route::post('upload',[PhotoController::class,"uploadPhoto"]);
-
-
+Route::post('upload', [PhotoController::class, "uploadPhoto"]);

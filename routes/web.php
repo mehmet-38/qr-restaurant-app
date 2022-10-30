@@ -35,6 +35,9 @@ Route::group(["prefix" => "manager", "middleware" => ["auth", "can:isRestaurantM
 
     Route::get("home", [RestManagerController::class, 'home'])->name('r-home');
     Route::get("info-rest", [RestManagerController::class, 'infoRestPage'])->name('info-rest');
+    Route::post("update-rest", [RestManagerController::class, 'updateRest'])->name('update-rest-info');
+    Route::get("add-menu-page", [RestManagerController::class, 'addMenuPage'])->name("add-menu-page");
+    Route::get("add-product-page", [RestManagerController::class, 'addProductPage'])->name('add-product-page');
 });
 
 Route::get("edit-user/{id}", [AdminController::class, 'edit']);
