@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\UserController as ApiUserController;
+use App\Http\Controllers\BasketController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PhotoController;
@@ -55,3 +56,9 @@ Route::get("menus/{menus_id}", [MenuController::class, "getMenusData"]);
 
 // Photo upload
 Route::post('upload', [PhotoController::class, "uploadPhoto"]);
+
+// Basket Controller
+Route::group(["middleware" => ["auth:sanctum", "role:3"]], function () {
+    Route::post('basket', [BasketController::class, 'addBasket']);
+    Route::get("basket", [BasketController::class, 'getBasket']);
+});

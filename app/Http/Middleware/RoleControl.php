@@ -14,10 +14,10 @@ class RoleControl
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next,$role)
+    public function handle(Request $request, Closure $next, $role)
     {
-        if($request->user()->role !=$role){
-            return response()->json(["result"=>false]);
+        if ($request->user()->role != $role) {
+            return response(["result" => false], 403);
         }
 
         return $next($request);

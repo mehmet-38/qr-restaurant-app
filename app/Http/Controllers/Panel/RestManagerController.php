@@ -39,6 +39,8 @@ class RestManagerController extends Controller
     {
         $rest_id = $request->input('rest_id');
 
+
+
         $response = Restaurant::where("rest_id", "=", $rest_id)->update([
             'rest_name' => $request->input('rest_name'),
             'qr_link' => $request->input('rest_qr'),
